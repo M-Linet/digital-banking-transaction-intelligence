@@ -1,0 +1,39 @@
+channel,failure_reason,failure_owner,failures,share_of_channel_failures_pct
+ATM,Insufficient funds,Customer,2824,49.2
+ATM,Incorrect PIN,Customer,1366,23.8
+ATM,Timeout,Operational,1157,20.1
+ATM,Limit exceeded,Customer,213,3.7
+ATM,System outage,Operational,117,2.0
+ATM,Unknown,Unknown,67,1.2
+Agent,Agent float unavailable,Operational,4842,50.2
+Agent,Insufficient funds,Customer,1888,19.6
+Agent,Incorrect PIN,Customer,1354,14.0
+Agent,Timeout,Operational,926,9.6
+Agent,System outage,Operational,361,3.7
+Agent,Limit exceeded,Customer,151,1.6
+Agent,Unknown,Unknown,127,1.3
+Internet Banking,Third-party unavailable,Operational,2177,32.3
+Internet Banking,Insufficient funds,Customer,2022,30.0
+Internet Banking,Limit exceeded,Customer,1431,21.2
+Internet Banking,Timeout,Operational,962,14.3
+Internet Banking,Unknown,Unknown,76,1.1
+Internet Banking,System outage,Operational,74,1.1
+Mobile App,Insufficient funds,Customer,11510,40.3
+Mobile App,Incorrect PIN,Customer,5357,18.8
+Mobile App,Timeout,Operational,4688,16.4
+Mobile App,Third-party unavailable,Operational,4634,16.2
+Mobile App,Limit exceeded,Customer,1286,4.5
+Mobile App,System outage,Operational,718,2.5
+Mobile App,Unknown,Unknown,358,1.3
+USSD,USSD session dropped,Operational,6788,35.8
+USSD,Insufficient funds,Customer,4846,25.6
+USSD,Incorrect PIN,Customer,2877,15.2
+USSD,Timeout,Operational,1976,10.4
+USSD,Third-party unavailable,Operational,1356,7.2
+USSD,System outage,Operational,494,2.6
+USSD,Limit exceeded,Customer,365,1.9
+USSD,Unknown,Unknown,249,1.3
+Wallet Link,Third-party unavailable,Operational,971,54.7
+Wallet Link,Timeout,Operational,766,43.1
+Wallet Link,Unknown,Unknown,23,1.3
+Wallet Link,System outage,Operational,16,0.9

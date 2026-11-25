@@ -1,0 +1,17 @@
+source_table,issue,action_taken,rows
+accounts,account type label variant,standardised,300
+customers,missing county,left NULL (reported as Unknown),696
+customers,segment label variant,standardised,346
+customers,exact duplicate row,removed,56
+customers,onboarding date outside data range (year typo),replaced with first account open date,15
+customers,duplicate customer_id with differing values,kept the most complete copy,4
+transactions,channel label variant,standardised,30000
+transactions,status label variant,standardised,8000
+transactions,exact duplicate row,removed,6000
+transactions,processing time sentinel (-1),set to NULL,3000
+transactions,failed transaction without a failure reason,set to 'Unknown',900
+transactions,successful transaction carrying a failure reason,reason set to NULL,250
+transactions,non-positive amount (sign cannot be trusted),quarantined,40
+transactions,"ATM amount above KES 40,000 limit (x100 pattern)",quarantined,35
+transactions,account_id not in account master,quarantined,30
+transactions,timestamp after extract date (year typo),quarantined,25

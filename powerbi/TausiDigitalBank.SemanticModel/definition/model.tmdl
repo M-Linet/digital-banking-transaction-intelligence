@@ -1,0 +1,21 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table _Measures
+ref table dim_date
+ref table dim_channel
+ref table dim_segment
+ref table dim_customer
+ref table fact_txn_daily
+ref table fact_failures
+ref table fact_channel_hour
+ref table fact_customer_month
+ref table market_context
+
+ref cultureInfo en-US

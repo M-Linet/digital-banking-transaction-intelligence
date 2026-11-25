@@ -1,0 +1,75 @@
+table fact_failures
+	lineageTag: 41bb630e-f481-55fd-9d1a-0b6ec980c639
+
+	column date
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		isHidden
+		lineageTag: 4593fc48-53be-547b-a48e-23ebbe53d0bd
+		summarizeBy: none
+		sourceColumn: date
+
+	column channel
+		dataType: string
+		isHidden
+		lineageTag: 38f36889-224d-5bae-aebe-5f2f51d0052a
+		summarizeBy: none
+		sourceColumn: channel
+
+	column failure_reason
+		dataType: string
+		lineageTag: 6a04f275-40bd-5453-93d9-59a542dd6f04
+		summarizeBy: none
+		sourceColumn: failure_reason
+
+	column failure_owner
+		dataType: string
+		lineageTag: e6275490-c3f0-5777-9d61-117f7e5590e4
+		summarizeBy: none
+		sourceColumn: failure_owner
+
+	column failures
+		dataType: int64
+		formatString: 0
+		lineageTag: 17f4f3b9-8a21-58c6-9a10-f0cef54e1063
+		summarizeBy: sum
+		sourceColumn: failures
+
+	column retried
+		dataType: int64
+		formatString: 0
+		lineageTag: 69411baf-0777-5e72-938a-38056b39cf72
+		summarizeBy: sum
+		sourceColumn: retried
+
+	column recovered
+		dataType: int64
+		formatString: 0
+		lineageTag: 9cf5b9df-e75a-502c-bbc7-00a250425ef2
+		summarizeBy: sum
+		sourceColumn: recovered
+
+	column not_recovered
+		dataType: int64
+		formatString: 0
+		lineageTag: 6939f4df-4afd-53df-89c2-777dc67b5811
+		summarizeBy: sum
+		sourceColumn: not_recovered
+
+	column fees_lost_kes
+		dataType: decimal
+		formatString: #,0
+		lineageTag: 0b309c79-25ff-57ad-89ad-642d391c5e02
+		summarizeBy: sum
+		sourceColumn: fees_lost_kes
+
+	partition fact_failures = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "fact_failures.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"date", type date}, {"channel", type text}, {"failure_reason", type text}, {"failure_owner", type text}, {"failures", Int64.Type}, {"retried", Int64.Type}, {"recovered", Int64.Type}, {"not_recovered", Int64.Type}, {"fees_lost_kes", Currency.Type}}, "en-US")
+				in
+				    Typed
+

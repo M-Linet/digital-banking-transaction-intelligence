@@ -1,0 +1,82 @@
+table dim_customer
+	lineageTag: 5f7a6d13-965f-5dbe-bb43-c19e39787d14
+
+	column customer_id
+		dataType: string
+		lineageTag: 6ca6d342-b4da-5046-a44d-916248bc56e5
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column segment
+		dataType: string
+		lineageTag: 5bb7992e-c7ed-5eaf-a544-d0c78816fa87
+		summarizeBy: none
+		sourceColumn: segment
+
+	column age_group
+		dataType: string
+		lineageTag: 5c53f189-7871-5cab-b3f4-9a18b6aa18ef
+		summarizeBy: none
+		sourceColumn: age_group
+
+	column county
+		dataType: string
+		lineageTag: 997ea7aa-341b-5e14-8d81-4703ef3278fe
+		summarizeBy: none
+		sourceColumn: county
+
+	column onboarding_channel
+		dataType: string
+		lineageTag: 6b39e86e-5828-55d3-a92d-ee9b14911d82
+		summarizeBy: none
+		sourceColumn: onboarding_channel
+
+	column kyc_tier
+		dataType: string
+		lineageTag: 601a1ea9-c377-503a-95ae-350fd214512a
+		summarizeBy: none
+		sourceColumn: kyc_tier
+
+	column onboarding_month
+		dataType: string
+		lineageTag: 21347504-cab1-5e69-917a-d3aaacd771a4
+		summarizeBy: none
+		sourceColumn: onboarding_month
+
+	column activity_status
+		dataType: string
+		lineageTag: e4748c37-982d-5e8a-88e9-c58ed626df5a
+		summarizeBy: none
+		sourceColumn: activity_status
+
+	column successful_txns
+		dataType: int64
+		formatString: 0
+		lineageTag: 7c2f02e9-81f7-560c-8c7c-b21437ca01a7
+		summarizeBy: none
+		sourceColumn: successful_txns
+
+	column value_kes
+		dataType: decimal
+		formatString: #,0
+		lineageTag: 1afcb395-20f8-5984-9461-b986ad9a33c9
+		summarizeBy: sum
+		sourceColumn: value_kes
+
+	column fee_income
+		dataType: decimal
+		formatString: #,0
+		lineageTag: 20cb236f-7808-5633-a242-86f5e1d8758b
+		summarizeBy: sum
+		sourceColumn: fee_income
+
+	partition dim_customer = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dim_customer.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"customer_id", type text}, {"segment", type text}, {"age_group", type text}, {"county", type text}, {"onboarding_channel", type text}, {"kyc_tier", type text}, {"onboarding_month", type text}, {"activity_status", type text}, {"successful_txns", Int64.Type}, {"value_kes", Currency.Type}, {"fee_income", Currency.Type}}, "en-US")
+				in
+				    Typed
+

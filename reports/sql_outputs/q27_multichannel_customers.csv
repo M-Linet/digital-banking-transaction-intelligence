@@ -1,0 +1,4 @@
+channel_count,customers,txns_per_month,fees_per_month_kes,value_per_month_kes
+1 channel,961,0.3,5.1,1473.0
+2 channels,1909,0.9,15.7,5358.0
+3+ channels,22352,5.8,153.8,88964.0

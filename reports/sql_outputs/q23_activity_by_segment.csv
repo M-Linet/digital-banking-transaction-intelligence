@@ -1,0 +1,6 @@
+segment,customers,avg_monthly_active_rate_pct,txns_per_active_month,value_per_active_month_kes,fees_per_active_month_kes
+Premier,1839,83.8,9.0,235810.0,302.8
+Salaried,6002,79.8,7.1,48670.0,155.5
+SME,3632,79.0,11.8,455892.0,524.2
+Mass Retail,11952,67.7,3.9,12436.0,72.2
+Youth,6575,67.6,5.1,10742.0,70.0

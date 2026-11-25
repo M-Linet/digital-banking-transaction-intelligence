@@ -1,0 +1,4 @@
+period,attempts,successful_transactions,success_rate_pct,value_kes_bn,fee_income_kes_m,fee_per_successful_txn,active_customers,active_rate_pct
+May 2025 - Oct 2026,2022688.0,1951275.0,96.47,29.33,51.72,26.5,,
+Oct 2025,98863.0,95352.0,96.45,1.43,2.56,26.81,15729.0,73.2
+Oct 2026,147378.0,142328.0,96.57,2.17,3.75,26.36,21445.0,71.5

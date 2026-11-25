@@ -1,0 +1,5 @@
+table_name,raw_rows,distinct_keys,extra_rows
+fee_schedule,65,65,0
+customers,30060,30000,60
+accounts,38034,38034,0
+transactions,2028818,2022818,6000

@@ -1,0 +1,10 @@
+transaction_type,type_category,successful,value_kes_m,share_of_value_pct,fee_income_kes_m,share_of_fees_pct,fee_yield_bps
+Interbank Transfer,Transfer,184656,16478.7,56.2,21.61,41.8,13.1
+Internal Transfer,Transfer,223465,4988.6,17.0,0.0,0.0,0.0
+Cash Withdrawal,Cash,345079,2564.6,8.7,17.87,34.6,69.7
+Bill Payment,Payment,217364,1416.2,4.8,3.48,6.7,24.6
+Send to Mobile Wallet,Wallet,368870,1413.9,4.8,8.76,16.9,61.9
+Cash Deposit,Cash,105423,1159.8,4.0,0.0,0.0,0.0
+Wallet Top-up,Wallet,125465,800.7,2.7,0.0,0.0,0.0
+Merchant Payment,Payment,171833,455.9,1.6,0.0,0.0,0.0
+Airtime Purchase,Payment,209120,48.1,0.2,0.0,0.0,0.0

@@ -1,0 +1,5 @@
+period,day_type,agent_withdrawal_attempts,float_failures,float_failure_pct
+Payday window (25th-2nd),Weekday,33500,2077,6.2
+Payday window (25th-2nd),Weekend,12568,788,6.27
+Rest of month,Weekday,62726,630,1.0
+Rest of month,Weekend,24051,1347,5.6

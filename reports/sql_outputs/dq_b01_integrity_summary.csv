@@ -1,0 +1,9 @@
+check_name,failures
+transaction before its account was opened,0
+transaction before the customer was onboarded,0
+account opened before customer onboarding,0
+customer without exactly one primary account,0
+transaction outside the extract window,0
+"ATM amount above KES 40,000",0
+transaction type not offered on its channel (no tariff or catalogue match),0
+transaction matching more than one tariff row,0

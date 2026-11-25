@@ -1,0 +1,19 @@
+channel,transaction_type,successful,value_kes_m,fee_income_kes_k,rank_in_channel
+ATM,Cash Withdrawal,220698,1524.0,7283.0,1
+Agent,Cash Withdrawal,124381,1040.7,10591.0,1
+Agent,Cash Deposit,105423,1159.8,0.0,2
+Internet Banking,Interbank Transfer,101165,11730.5,13203.0,1
+Internet Banking,Internal Transfer,68890,2455.0,0.0,2
+Internet Banking,Bill Payment,56974,627.7,855.0,3
+Mobile App,Send to Mobile Wallet,258106,1062.5,5901.0,1
+Mobile App,Merchant Payment,134153,379.6,0.0,2
+Mobile App,Airtime Purchase,134001,34.5,0.0,3
+Mobile App,Internal Transfer,117023,2069.2,0.0,4
+Mobile App,Bill Payment,116729,622.8,1751.0,5
+Mobile App,Interbank Transfer,83491,4748.3,8406.0,6
+USSD,Send to Mobile Wallet,110764,351.5,2855.0,1
+USSD,Airtime Purchase,75119,13.6,0.0,2
+USSD,Bill Payment,43661,165.7,873.0,3
+USSD,Merchant Payment,37680,76.3,0.0,4
+USSD,Internal Transfer,37552,464.3,0.0,5
+Wallet Link,Wallet Top-up,125465,800.7,0.0,1

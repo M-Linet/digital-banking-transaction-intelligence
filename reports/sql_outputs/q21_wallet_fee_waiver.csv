@@ -1,0 +1,5 @@
+period,channel,transfers,share_of_small_transfers_pct,fees_kes,tariff_fees_kes
+a) Before waiver (Aug 2025 - Jan 2026),Mobile App,24702,60.4,239020.0,239020.0
+a) Before waiver (Aug 2025 - Jan 2026),USSD,16214,39.6,188676.0,188676.0
+b) After waiver (Feb - Jul 2026),Mobile App,36517,75.1,26340.0,0.0
+b) After waiver (Feb - Jul 2026),USSD,12105,24.9,140868.0,140868.0

@@ -1,0 +1,7 @@
+channel,channel_group,successful,share_of_volume_pct,value_kes_m,share_of_value_pct,fee_income_kes_m,share_of_fees_pct,median_amount_kes,success_rate_pct,operational_failure_pct
+Mobile App,Digital,843503,43.2,8917.0,30.4,16.06,31.0,1783.0,96.73,1.15
+USSD,Digital,304776,15.6,1071.3,3.7,3.73,7.2,974.0,94.15,3.28
+Agent,Assisted,229804,11.8,2200.4,7.5,10.59,20.5,3845.0,95.97,2.56
+Internet Banking,Digital,227029,11.6,14813.1,50.5,14.06,27.2,23663.0,97.12,1.37
+ATM,Self-service,220698,11.3,1524.0,5.2,7.28,14.1,3500.0,97.46,0.56
+Wallet Link,Partner,125465,6.4,800.7,2.7,0.0,0.0,2627.0,98.6,1.38

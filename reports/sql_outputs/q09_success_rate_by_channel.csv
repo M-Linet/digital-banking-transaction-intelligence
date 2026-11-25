@@ -1,0 +1,7 @@
+channel,attempts,success_rate_pct,customer_failure_pct,operational_failure_pct,unknown_failure_pct,worst_operational_rank
+USSD,323727,94.15,2.5,3.28,0.08,1
+Agent,239453,95.97,1.42,2.56,0.05,2
+Wallet Link,127241,98.6,0.0,1.38,0.02,3
+Internet Banking,233771,97.12,1.48,1.37,0.03,4
+Mobile App,872054,96.73,2.08,1.15,0.04,5
+ATM,226442,97.46,1.94,0.56,0.03,6

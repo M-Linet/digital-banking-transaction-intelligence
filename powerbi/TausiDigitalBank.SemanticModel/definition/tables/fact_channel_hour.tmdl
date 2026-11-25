@@ -1,0 +1,49 @@
+table fact_channel_hour
+	lineageTag: 5e57412e-d3af-5ec9-b722-8087f02d7b63
+
+	column date
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		isHidden
+		lineageTag: a4baad2c-dd19-51d0-8ecd-3506e5393e55
+		summarizeBy: none
+		sourceColumn: date
+
+	column hour_of_day
+		dataType: int64
+		formatString: 0
+		lineageTag: 7c2bc488-bb09-55bf-b722-88e1280d6cb0
+		summarizeBy: none
+		sourceColumn: hour_of_day
+
+	column channel
+		dataType: string
+		isHidden
+		lineageTag: 028d4457-d2cb-591e-b86f-3f0b0a3f913b
+		summarizeBy: none
+		sourceColumn: channel
+
+	column attempts
+		dataType: int64
+		formatString: 0
+		lineageTag: 5bb6bb74-af26-5032-a927-2e340cf73c15
+		summarizeBy: sum
+		sourceColumn: attempts
+
+	column operational_failures
+		dataType: int64
+		formatString: 0
+		lineageTag: bcb6d77c-1760-54b2-93f4-6472a4b9dbcc
+		summarizeBy: sum
+		sourceColumn: operational_failures
+
+	partition fact_channel_hour = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "fact_channel_hour.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"date", type date}, {"hour_of_day", Int64.Type}, {"channel", type text}, {"attempts", Int64.Type}, {"operational_failures", Int64.Type}}, "en-US")
+				in
+				    Typed
+

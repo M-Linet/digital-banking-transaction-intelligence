@@ -1,0 +1,14 @@
+kpi,expected_value
+"Attempts, all months",2022688.0
+"Successful transactions, all months",1951275.0
+Success rate %,96.47
+"Value moved, KES",29326528004.0
+"Fee income, KES",51717546.0
+Operational failure rate %,1.63
+USSD operational failure rate %,3.28
+"Fees lost to unrecovered operational failures, KES",632764.0
+"Overcharge to refund, KES",96444.0
+"Active customers, Oct 2026",21445.0
+"Active rate %, Oct 2026",71.5
+Dormant customers (90+ days),5591.0
+"Customers, total",30000.0

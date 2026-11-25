@@ -1,0 +1,26 @@
+channel,failure_reason,operational_failures,not_recovered,fees_lost_kes,value_not_completed_kes_m
+ATM,,1274,649,21417.0,4.3
+ATM,Timeout,1157,549,18117.0,3.8
+ATM,System outage,117,100,3300.0,0.6
+Agent,,6129,3276,248570.0,27.6
+Agent,Agent float unavailable,4842,2503,211660.0,20.3
+Agent,Timeout,926,464,21990.0,4.5
+Agent,System outage,361,309,14920.0,2.8
+Internet Banking,,3213,1554,134125.0,119.1
+Internet Banking,Third-party unavailable,2177,1018,99945.0,86.0
+Internet Banking,Timeout,962,476,30885.0,30.6
+Internet Banking,System outage,74,60,3295.0,2.5
+Mobile App,,10040,5063,152310.0,76.8
+Mobile App,Third-party unavailable,4634,2249,98600.0,46.3
+Mobile App,Timeout,4688,2247,41520.0,21.8
+Mobile App,System outage,718,567,12190.0,8.7
+USSD,,10614,5441,76342.0,17.9
+USSD,USSD session dropped,6788,3391,42497.0,10.7
+USSD,Third-party unavailable,1356,674,16305.0,2.2
+USSD,Timeout,1976,986,12920.0,3.7
+USSD,System outage,494,390,4620.0,1.3
+Wallet Link,System outage,16,14,0.0,0.1
+Wallet Link,Third-party unavailable,971,467,0.0,2.9
+Wallet Link,Timeout,766,358,0.0,2.2
+Wallet Link,,1753,839,0.0,5.2
+,,33023,16822,632764.0,251.0

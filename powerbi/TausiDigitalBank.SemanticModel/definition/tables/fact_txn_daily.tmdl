@@ -1,0 +1,96 @@
+table fact_txn_daily
+	lineageTag: b8c0839e-b640-592c-834b-d0789d8312db
+
+	column date
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		isHidden
+		lineageTag: a17ceaee-72d1-5a4f-9eee-402a2903132e
+		summarizeBy: none
+		sourceColumn: date
+
+	column channel
+		dataType: string
+		isHidden
+		lineageTag: 3067867a-1b51-52e8-b2be-a50cfdf06bf6
+		summarizeBy: none
+		sourceColumn: channel
+
+	column transaction_type
+		dataType: string
+		lineageTag: d926c373-b79e-53f0-a189-4fd8b0de773a
+		summarizeBy: none
+		sourceColumn: transaction_type
+
+	column type_category
+		dataType: string
+		lineageTag: 5f07ade3-6833-52d6-98e1-6418a976a095
+		summarizeBy: none
+		sourceColumn: type_category
+
+	column segment
+		dataType: string
+		isHidden
+		lineageTag: b6f955ec-2dd5-586b-b1d1-80402ab1ab88
+		summarizeBy: none
+		sourceColumn: segment
+
+	column attempts
+		dataType: int64
+		formatString: 0
+		lineageTag: b744d51b-ae24-56aa-9386-2a0eea7cdd49
+		summarizeBy: sum
+		sourceColumn: attempts
+
+	column successful
+		dataType: int64
+		formatString: 0
+		lineageTag: b15a3eb9-8c85-5998-852c-6f104a64f935
+		summarizeBy: sum
+		sourceColumn: successful
+
+	column operational_failures
+		dataType: int64
+		formatString: 0
+		lineageTag: 5566a555-4300-5828-a80f-8295141770c6
+		summarizeBy: sum
+		sourceColumn: operational_failures
+
+	column customer_failures
+		dataType: int64
+		formatString: 0
+		lineageTag: 7ab3fec2-aece-59a2-8d8c-5c262d21d234
+		summarizeBy: sum
+		sourceColumn: customer_failures
+
+	column value_kes
+		dataType: decimal
+		formatString: #,0
+		lineageTag: 7c31163f-2e66-5431-93cf-7c6b02e562a9
+		summarizeBy: sum
+		sourceColumn: value_kes
+
+	column fee_income
+		dataType: decimal
+		formatString: #,0
+		lineageTag: 0f0b7e43-5ad9-5701-82c6-17a94dc76f6f
+		summarizeBy: sum
+		sourceColumn: fee_income
+
+	column overcharge_kes
+		dataType: decimal
+		formatString: #,0
+		lineageTag: b9722d09-7a7b-5d78-bd74-a187ea77f017
+		summarizeBy: sum
+		sourceColumn: overcharge_kes
+
+	partition fact_txn_daily = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "fact_txn_daily.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"date", type date}, {"channel", type text}, {"transaction_type", type text}, {"type_category", type text}, {"segment", type text}, {"attempts", Int64.Type}, {"successful", Int64.Type}, {"operational_failures", Int64.Type}, {"customer_failures", Int64.Type}, {"value_kes", Currency.Type}, {"fee_income", Currency.Type}, {"overcharge_kes", Currency.Type}}, "en-US")
+				in
+				    Typed
+

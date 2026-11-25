@@ -1,0 +1,25 @@
+table dim_channel
+	lineageTag: 6bd9b42b-20e8-5cac-bbae-602c4b20ee29
+
+	column channel
+		dataType: string
+		lineageTag: 5fbd87b9-51c6-521d-97be-8049694cf717
+		summarizeBy: none
+		sourceColumn: channel
+
+	column channel_group
+		dataType: string
+		lineageTag: a9f489c1-f2d1-5c6c-9298-0e945927b4f8
+		summarizeBy: none
+		sourceColumn: channel_group
+
+	partition dim_channel = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dim_channel.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"channel", type text}, {"channel_group", type text}}, "en-US")
+				in
+				    Typed
+

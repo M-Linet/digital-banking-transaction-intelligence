@@ -1,0 +1,10 @@
+activity_band,operational_failures_in_month,customer_months,active_next_month_pct
+a) 1-3 attempts,a) none,107478,83.9
+a) 1-3 attempts,b) 1,2516,84.7
+a) 1-3 attempts,c) 2 or more,43,86.0
+b) 4-9 attempts,a) none,109282,95.6
+b) 4-9 attempts,b) 1,10775,94.5
+b) 4-9 attempts,c) 2 or more,688,93.2
+c) 10+ attempts,a) none,46481,98.0
+c) 10+ attempts,b) 1,11429,97.1
+c) 10+ attempts,c) 2 or more,1957,95.6

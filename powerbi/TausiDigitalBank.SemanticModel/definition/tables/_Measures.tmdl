@@ -1,0 +1,290 @@
+table _Measures
+	lineageTag: b865f2c2-d952-500a-8fd9-6796f76ab3e9
+
+	measure Attempts = SUM ( fact_txn_daily[attempts] )
+		formatString: #,0
+		displayFolder: 1 Volume & value
+		lineageTag: 21cfb011-35bd-5330-bc74-88661e3d6d2c
+
+	measure 'Successful Transactions' = SUM ( fact_txn_daily[successful] )
+		formatString: #,0
+		displayFolder: 1 Volume & value
+		lineageTag: 90209608-5a53-5e04-888c-494263c5b0a4
+
+	measure 'Value Moved (KES)' = SUM ( fact_txn_daily[value_kes] )
+		formatString: #,0
+		displayFolder: 1 Volume & value
+		lineageTag: 582cf78b-acdc-5d9f-a711-c26a80d4bd3b
+
+	measure 'Share of Transactions' = DIVIDE ( [Successful Transactions], CALCULATE ( [Successful Transactions], REMOVEFILTERS ( dim_channel ) ) )
+		formatString: 0.0%
+		displayFolder: 1 Volume & value
+		lineageTag: 43a23635-c58f-5d05-8ee7-06d64632b337
+
+	measure 'Share of Value' = DIVIDE ( [Value Moved (KES)], CALCULATE ( [Value Moved (KES)], REMOVEFILTERS ( fact_txn_daily[transaction_type], fact_txn_daily[type_category] ) ) )
+		formatString: 0.0%
+		displayFolder: 1 Volume & value
+		lineageTag: fb2c4775-19be-5228-8668-081693039bd9
+
+	measure 'Fee Income (KES)' = SUM ( fact_txn_daily[fee_income] )
+		formatString: #,0
+		displayFolder: 2 Fees
+		lineageTag: ae4a9b67-ca9e-5117-8cf2-8ae068bc53e4
+
+	measure 'Fee per Successful Transaction' = DIVIDE ( [Fee Income (KES)], [Successful Transactions] )
+		formatString: #,0.00
+		displayFolder: 2 Fees
+		lineageTag: dccf448c-f1ab-525f-b6dc-dae59ba4530c
+
+	measure 'Fee Yield (bps)' = DIVIDE ( [Fee Income (KES)], [Value Moved (KES)] ) * 10000
+		formatString: #,0.0
+		displayFolder: 2 Fees
+		lineageTag: 49697bab-de11-5c80-a579-039ecada841e
+
+	measure 'Share of Fees' = DIVIDE ( [Fee Income (KES)], CALCULATE ( [Fee Income (KES)], REMOVEFILTERS ( fact_txn_daily[transaction_type], fact_txn_daily[type_category] ) ) )
+		formatString: 0.0%
+		displayFolder: 2 Fees
+		lineageTag: 32516262-8ce2-5a49-b331-d8080fc89d13
+
+	measure 'Overcharge to Refund (KES)' = SUM ( fact_txn_daily[overcharge_kes] )
+		formatString: #,0
+		displayFolder: 2 Fees
+		lineageTag: 09188e6e-dd66-5a52-8aff-c4678b3bcd79
+
+	measure 'Fees Lost to Failures (KES)' = SUM ( fact_failures[fees_lost_kes] )
+		formatString: #,0
+		displayFolder: 2 Fees
+		lineageTag: 8ba6774c-af69-526c-9414-f9284be47770
+
+	measure 'Success Rate %' = DIVIDE ( [Successful Transactions], [Attempts] )
+		formatString: 0.00%
+		displayFolder: 3 Reliability
+		lineageTag: 66ba7f46-f0cd-5f30-848d-e699ba3b5e96
+
+	measure 'Operational Failure Rate %' = DIVIDE ( SUM ( fact_txn_daily[operational_failures] ), [Attempts] )
+		formatString: 0.00%
+		displayFolder: 3 Reliability
+		lineageTag: 3103f7c3-4223-5dcd-b342-4ed93f30db42
+
+	measure 'Customer Failure Rate %' = DIVIDE ( SUM ( fact_txn_daily[customer_failures] ), [Attempts] )
+		formatString: 0.00%
+		displayFolder: 3 Reliability
+		lineageTag: 8f974f2d-437f-5dfa-b6be-4332b3d2d29e
+
+	measure Failures = SUM ( fact_failures[failures] )
+		formatString: #,0
+		displayFolder: 3 Reliability
+		lineageTag: c32a456b-58c9-5937-90b6-a277035f1266
+
+	measure 'Operational Failures' = CALCULATE ( [Failures], fact_failures[failure_owner] = "Operational" )
+		formatString: #,0
+		displayFolder: 3 Reliability
+		lineageTag: 1bd6af6f-12b2-58c5-afa7-91662ccbed75
+
+	measure 'Recovered by Retry %' = DIVIDE ( CALCULATE ( SUM ( fact_failures[recovered] ), fact_failures[failure_owner] = "Operational" ), [Operational Failures] )
+		formatString: 0.0%
+		displayFolder: 3 Reliability
+		lineageTag: 7f4230b9-5354-53fb-afce-5e0bc0556f5b
+
+	measure 'Unrecovered Operational Failures' = CALCULATE ( SUM ( fact_failures[not_recovered] ), fact_failures[failure_owner] = "Operational" )
+		formatString: #,0
+		displayFolder: 3 Reliability
+		lineageTag: 49298c52-dcca-5032-a7a7-d0a343896ec8
+
+	measure 'Hourly Operational Failure Rate %' = DIVIDE ( SUM ( fact_channel_hour[operational_failures] ), SUM ( fact_channel_hour[attempts] ) )
+		formatString: 0.00%
+		displayFolder: 3 Reliability
+		lineageTag: 7586610d-a6fb-5f21-a697-cc5b0fcda025
+
+	measure 'Customer-Months' = COUNTROWS ( fact_customer_month )
+		formatString: #,0
+		displayFolder: 4 Customers
+		lineageTag: f106a80e-f68e-587f-b768-8d7160cd0456
+
+	measure 'Active Customers' = CALCULATE ( COUNTROWS ( fact_customer_month ), fact_customer_month[is_active] = TRUE () )
+		formatString: #,0
+		displayFolder: 4 Customers
+		lineageTag: 108849fd-1e0b-54e8-909d-054a65ad92c5
+
+	measure 'Active Rate %' = DIVIDE ( [Active Customers], [Customer-Months] )
+		formatString: 0.0%
+		displayFolder: 4 Customers
+		lineageTag: 9d59b4a1-1552-5bc1-b246-438ca9c98095
+
+	measure 'Latest Month' = MAX ( fact_customer_month[month] )
+		formatString: mmm yyyy
+		displayFolder: 4 Customers
+		lineageTag: 13028d33-55eb-5a44-b8e4-92c9338c23e1
+
+	measure 'Active Customers (latest month)' = VAR m = [Latest Month] RETURN CALCULATE ( [Active Customers], fact_customer_month[month] = m )
+		formatString: #,0
+		displayFolder: 4 Customers
+		lineageTag: ce833507-84d5-507a-9e3f-c3c1fabf71fb
+
+	measure 'Active Rate % (latest month)' = VAR m = [Latest Month] RETURN CALCULATE ( [Active Rate %], fact_customer_month[month] = m )
+		formatString: 0.0%
+		displayFolder: 4 Customers
+		lineageTag: 3bba08e7-1a91-55d0-bc65-e491ebc7bdfc
+
+	measure 'New Customers' = CALCULATE ( COUNTROWS ( fact_customer_month ), fact_customer_month[is_new_customer] = TRUE () )
+		formatString: #,0
+		displayFolder: 4 Customers
+		lineageTag: faf5fc36-3230-5f8b-afb2-e103bdfd5202
+
+	measure Customers = COUNTROWS ( dim_customer )
+		formatString: #,0
+		displayFolder: 4 Customers
+		lineageTag: 1dcd0053-753a-563a-9897-7f7717cad719
+
+	measure 'Dormant Customers' = CALCULATE ( [Customers], dim_customer[activity_status] = "Dormant (90+ days)" )
+		formatString: #,0
+		displayFolder: 4 Customers
+		lineageTag: e1c8ba64-e781-5aac-bda7-166fe22c54c8
+
+	measure 'Dormant %' = DIVIDE ( [Dormant Customers], CALCULATE ( [Customers], dim_customer[activity_status] <> "Too new to assess" ) )
+		formatString: 0.0%
+		displayFolder: 4 Customers
+		lineageTag: 12090440-615d-56ca-9e3c-c653d3bc1567
+
+	measure 'Fee per Active Customer-Month' = DIVIDE ( SUM ( fact_customer_month[fee_income] ), [Active Customers] )
+		formatString: #,0.0
+		displayFolder: 4 Customers
+		lineageTag: 7f667777-a891-5b2b-83f6-7bcd41270b89
+
+	measure 'Bank Volume Index' = AVERAGE ( market_context[bank_volume_index] )
+		formatString: #,0.0
+		displayFolder: 5 Market context
+		lineageTag: 26e1c058-a93d-5358-b220-6a3bd5946324
+
+	measure 'Market Volume Index (CBK)' = AVERAGE ( market_context[market_volume_index] )
+		formatString: #,0.0
+		displayFolder: 5 Market context
+		lineageTag: bf7375c8-efd9-56d7-9b5d-9e216a214781
+
+	measure 'Δ Successful Transactions' =
+			VAR f = MIN ( dim_date[month_start] )
+			VAR l = MAX ( dim_date[month_start] )
+			VAR a = CALCULATE ( [Successful Transactions], dim_date[month_start] = f )
+			VAR b = CALCULATE ( [Successful Transactions], dim_date[month_start] = l )
+			RETURN IF ( NOT ISBLANK ( a ) && a <> 0, FORMAT ( DIVIDE ( b - a, a ), "▲ 0%;▼ 0%;0%" ) & "  " & FORMAT ( f, "mmm yy" ) & " → " & FORMAT ( l, "mmm yy" ) )
+		displayFolder: 6 Formatting
+		lineageTag: ace9a362-1266-5781-b846-586421633c57
+
+	measure 'Δ Value Moved' =
+			VAR f = MIN ( dim_date[month_start] )
+			VAR l = MAX ( dim_date[month_start] )
+			VAR a = CALCULATE ( [Value Moved (KES)], dim_date[month_start] = f )
+			VAR b = CALCULATE ( [Value Moved (KES)], dim_date[month_start] = l )
+			RETURN IF ( NOT ISBLANK ( a ) && a <> 0, FORMAT ( DIVIDE ( b - a, a ), "▲ 0%;▼ 0%;0%" ) & "  " & FORMAT ( f, "mmm yy" ) & " → " & FORMAT ( l, "mmm yy" ) )
+		displayFolder: 6 Formatting
+		lineageTag: 43d5f845-b6c4-5515-92c6-1c6b61646798
+
+	measure 'Δ Fee Income' =
+			VAR f = MIN ( dim_date[month_start] )
+			VAR l = MAX ( dim_date[month_start] )
+			VAR a = CALCULATE ( [Fee Income (KES)], dim_date[month_start] = f )
+			VAR b = CALCULATE ( [Fee Income (KES)], dim_date[month_start] = l )
+			RETURN IF ( NOT ISBLANK ( a ) && a <> 0, FORMAT ( DIVIDE ( b - a, a ), "▲ 0%;▼ 0%;0%" ) & "  " & FORMAT ( f, "mmm yy" ) & " → " & FORMAT ( l, "mmm yy" ) )
+		displayFolder: 6 Formatting
+		lineageTag: 3a7231ff-5a40-5952-ad43-291028db1dfa
+
+	measure 'Δ Success Rate' =
+			VAR f = MIN ( dim_date[month_start] )
+			VAR l = MAX ( dim_date[month_start] )
+			VAR a = CALCULATE ( [Success Rate %], dim_date[month_start] = f )
+			VAR b = CALCULATE ( [Success Rate %], dim_date[month_start] = l )
+			RETURN IF ( NOT ISBLANK ( a ) && a <> 0, FORMAT ( ( b - a ) * 100, "▲ 0.0 pts;▼ 0.0 pts;0.0 pts" ) & "  " & FORMAT ( f, "mmm yy" ) & " → " & FORMAT ( l, "mmm yy" ) )
+		displayFolder: 6 Formatting
+		lineageTag: 6f5f8649-fe3f-5cbd-a47a-524e603fbc54
+
+	measure 'Δ Active Customers' =
+			VAR f = MIN ( dim_date[month_start] )
+			VAR l = MAX ( dim_date[month_start] )
+			VAR a = CALCULATE ( [Active Customers], dim_date[month_start] = f )
+			VAR b = CALCULATE ( [Active Customers], dim_date[month_start] = l )
+			RETURN IF ( NOT ISBLANK ( a ) && a <> 0, FORMAT ( DIVIDE ( b - a, a ), "▲ 0%;▼ 0%;0%" ) & "  " & FORMAT ( f, "mmm yy" ) & " → " & FORMAT ( l, "mmm yy" ) )
+		displayFolder: 6 Formatting
+		lineageTag: 4b9279dc-9982-5189-a8fc-d98a5827f7ca
+
+	measure 'Δ Active Rate' =
+			VAR f = MIN ( dim_date[month_start] )
+			VAR l = MAX ( dim_date[month_start] )
+			VAR a = CALCULATE ( [Active Rate %], dim_date[month_start] = f )
+			VAR b = CALCULATE ( [Active Rate %], dim_date[month_start] = l )
+			RETURN IF ( NOT ISBLANK ( a ) && a <> 0, FORMAT ( ( b - a ) * 100, "▲ 0.0 pts;▼ 0.0 pts;0.0 pts" ) & "  " & FORMAT ( f, "mmm yy" ) & " → " & FORMAT ( l, "mmm yy" ) )
+		displayFolder: 6 Formatting
+		lineageTag: 79bb0283-615b-5313-a253-ee035eb9a075
+
+	measure 'Δ Fee per Transaction' =
+			VAR f = MIN ( dim_date[month_start] )
+			VAR l = MAX ( dim_date[month_start] )
+			VAR a = CALCULATE ( [Fee per Successful Transaction], dim_date[month_start] = f )
+			VAR b = CALCULATE ( [Fee per Successful Transaction], dim_date[month_start] = l )
+			RETURN IF ( NOT ISBLANK ( a ) && a <> 0, FORMAT ( DIVIDE ( b - a, a ), "▲ 0%;▼ 0%;0%" ) & "  " & FORMAT ( f, "mmm yy" ) & " → " & FORMAT ( l, "mmm yy" ) )
+		displayFolder: 6 Formatting
+		lineageTag: e5d21def-d772-5607-8da2-76f2f847f71a
+
+	measure 'Δ Operational Failure Rate' =
+			VAR f = MIN ( dim_date[month_start] )
+			VAR l = MAX ( dim_date[month_start] )
+			VAR a = CALCULATE ( [Operational Failure Rate %], dim_date[month_start] = f )
+			VAR b = CALCULATE ( [Operational Failure Rate %], dim_date[month_start] = l )
+			RETURN IF ( NOT ISBLANK ( a ) && a <> 0, FORMAT ( ( b - a ) * 100, "▲ 0.0 pts;▼ 0.0 pts;0.0 pts" ) & "  " & FORMAT ( f, "mmm yy" ) & " → " & FORMAT ( l, "mmm yy" ) )
+		displayFolder: 6 Formatting
+		lineageTag: a7768688-7358-5d1f-a1df-05dbd29cba8d
+
+	measure 'Fees Lost Share Text' = FORMAT ( DIVIDE ( [Fees Lost to Failures (KES)], [Fee Income (KES)] ), "0.0%" ) & " of fee income"
+		displayFolder: 6 Formatting
+		lineageTag: 85d75edc-ee43-5048-b210-e46daccd40f5
+
+	measure 'Dormant Share Text' = FORMAT ( [Dormant %], "0%" ) & " of those joined before Aug 26"
+		displayFolder: 6 Formatting
+		lineageTag: cb48d2d4-87d8-5266-9c6e-a1400cf544fd
+
+	measure 'Colour Fee Channel' = IF ( SELECTEDVALUE ( dim_channel[channel] ) = "Mobile App", "#2a78d6", "#c3c2b7" )
+		displayFolder: 6 Formatting
+		lineageTag: 0166fcc3-26ae-5def-a0e0-d64d1a0d0dac
+
+	measure 'Colour Value Channel' = IF ( SELECTEDVALUE ( dim_channel[channel] ) = "Internet Banking", "#2a78d6", "#c3c2b7" )
+		displayFolder: 6 Formatting
+		lineageTag: 0acf26bd-8a14-5e8e-9588-fc3ab77ac84a
+
+	measure 'Colour Failure Channel' = IF ( SELECTEDVALUE ( dim_channel[channel] ) IN { "USSD", "Agent" }, "#eb6834", "#c3c2b7" )
+		displayFolder: 6 Formatting
+		lineageTag: 62fb3153-2c01-58c3-ae18-ec6c993d44ce
+
+	measure 'Colour Failure Owner' = IF ( SELECTEDVALUE ( fact_failures[failure_owner] ) = "Operational", "#eb6834", "#c3c2b7" )
+		displayFolder: 6 Formatting
+		lineageTag: ead15a7a-6b4c-5445-9bf3-f0fa82ef51e0
+
+	measure 'Channel Status' = VAR r = [Operational Failure Rate %] RETURN IF ( ISBLANK ( r ), BLANK (), IF ( r >= 0.025, "▲ Watch", "● Normal" ) )
+		displayFolder: 6 Formatting
+		lineageTag: 4538c94e-25f3-5517-b4ed-c19bc24d39b5
+
+	measure 'Colour Channel Status' = IF ( [Operational Failure Rate %] >= 0.025, "#eb6834", "#52514e" )
+		displayFolder: 6 Formatting
+		lineageTag: c1f6c45c-f559-5402-bb82-3b52a8f810ab
+
+	measure 'Colour Yield Channel' = IF ( SELECTEDVALUE ( dim_channel[channel] ) IN { "Agent", "ATM" }, "#2a78d6", "#c3c2b7" )
+		displayFolder: 6 Formatting
+		lineageTag: 63cc8cf1-d8df-5c97-a51b-df0b91f8ff8f
+
+	measure 'Colour Segment Focus' = IF ( SELECTEDVALUE ( dim_segment[segment] ) IN { "Youth", "Mass Retail" }, "#eb6834", "#c3c2b7" )
+		displayFolder: 6 Formatting
+		lineageTag: edc2eb00-a39c-57c8-adf5-782120f4ddbb
+
+	column Dummy
+		dataType: string
+		isHidden
+		lineageTag: d78495f1-915e-5094-91bf-ea611767a55f
+		summarizeBy: none
+		sourceColumn: Dummy
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Dummy = text], {})
+				in
+				    Source
+

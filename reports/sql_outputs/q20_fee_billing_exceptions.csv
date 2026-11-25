@@ -1,0 +1,5 @@
+issue,channel,transaction_type,first_seen,last_seen,transactions,customers_affected,overcharge_kes
+Fee charged on a failed transaction,Mobile App,Interbank Transfer,2026-03-02,2026-04-12,371,360,38910.0
+Charged above tariff,Mobile App,Send to Mobile Wallet,2026-02-01,2026-02-14,2634,2302,26340.0
+Fee charged on a failed transaction,Mobile App,Send to Mobile Wallet,2026-03-02,2026-04-12,546,515,17970.0
+Fee charged on a failed transaction,USSD,Send to Mobile Wallet,2026-03-02,2026-04-12,500,474,13224.0

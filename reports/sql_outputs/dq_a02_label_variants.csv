@@ -1,0 +1,25 @@
+field,raw_label,rows
+accounts.account_type,savings,147
+accounts.account_type,current,100
+accounts.account_type,digital wallet,46
+accounts.account_type,fixed savings,7
+customers.segment,MASS RETAIL,160
+customers.segment,YOUTH,92
+customers.segment,SALARIED,67
+customers.segment,PREMIER,27
+transactions.channel,mobile app,4371
+transactions.channel,APP,4332
+transactions.channel,MobileApp,4181
+transactions.channel,AGENT,3577
+transactions.channel,atm,3413
+transactions.channel,USSD ,2421
+transactions.channel,ussd,2407
+transactions.channel,wallet link,1904
+transactions.channel,Internet banking,1756
+transactions.channel,IB,1735
+transactions.status,SUCCESS,2642
+transactions.status,success,2577
+transactions.status,Success ,2543
+transactions.status,Failed ,102
+transactions.status,FAILED,77
+transactions.status,failed,75

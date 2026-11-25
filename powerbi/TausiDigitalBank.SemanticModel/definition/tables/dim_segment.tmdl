@@ -1,0 +1,28 @@
+table dim_segment
+	lineageTag: 89d973df-98c2-5c3b-8d80-5c89703ba153
+
+	column segment
+		dataType: string
+		lineageTag: 39063569-1b09-5ef1-bc70-5536090c87fd
+		summarizeBy: none
+		sourceColumn: segment
+		sortByColumn: segment_order
+
+	column segment_order
+		dataType: int64
+		formatString: 0
+		isHidden
+		lineageTag: cc294459-ab3c-52df-8e48-a4dfd4a45b17
+		summarizeBy: none
+		sourceColumn: segment_order
+
+	partition dim_segment = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dim_segment.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"segment", type text}, {"segment_order", Int64.Type}}, "en-US")
+				in
+				    Typed
+

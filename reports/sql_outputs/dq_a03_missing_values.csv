@@ -1,0 +1,5 @@
+field,missing,rows
+customers.county,700,30060
+transactions.processing_ms = -1 (not captured),3015,2028818
+transactions.failure_reason (failed rows),901,71645
+transactions.failure_reason present on successful rows,250,1957173

@@ -1,0 +1,44 @@
+table market_context
+	lineageTag: 96b8ad71-40a2-5cfe-89ba-ad638e5f9671
+
+	column month
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: 8336b1dd-c257-5616-bc6a-1287ece7e36c
+		summarizeBy: none
+		sourceColumn: month
+
+	column bank_volume_index
+		dataType: double
+		lineageTag: e19c3c31-e68f-5f83-a07f-f29d15fff3c3
+		summarizeBy: none
+		sourceColumn: bank_volume_index
+
+	column market_volume_index
+		dataType: double
+		lineageTag: 69ac3b7f-250b-5ba4-8e57-b8f4b1d61841
+		summarizeBy: none
+		sourceColumn: market_volume_index
+
+	column bank_value_index
+		dataType: double
+		lineageTag: 8f40533f-2313-509f-8676-ebe8b28eccb3
+		summarizeBy: none
+		sourceColumn: bank_value_index
+
+	column market_value_index
+		dataType: double
+		lineageTag: 6cc5936c-3b44-586b-b329-1634638c686b
+		summarizeBy: none
+		sourceColumn: market_value_index
+
+	partition market_context = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "market_context.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"month", type date}, {"bank_volume_index", type number}, {"market_volume_index", type number}, {"bank_value_index", type number}, {"market_value_index", type number}}, "en-US")
+				in
+				    Typed
+

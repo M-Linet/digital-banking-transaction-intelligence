@@ -1,0 +1,4 @@
+expression DataFolder = "C:\data analyst portfolio\digital-banking-transaction-intelligence\data\processed\powerbi\" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: 8d02ee44-4355-5fbf-9d59-b0d21cf3289f
+
+	annotation PBI_ResultType = Text

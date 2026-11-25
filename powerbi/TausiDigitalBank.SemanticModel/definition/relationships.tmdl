@@ -1,0 +1,39 @@
+relationship abdee880-f296-51c2-a81d-be4a973efa29
+	fromColumn: fact_txn_daily.date
+	toColumn: dim_date.date
+
+relationship df2f371c-a0f7-555a-97db-94d8e0be9bcd
+	fromColumn: fact_txn_daily.channel
+	toColumn: dim_channel.channel
+
+relationship 77004e7d-080a-58f4-a773-d3d387006711
+	fromColumn: fact_txn_daily.segment
+	toColumn: dim_segment.segment
+
+relationship 09962d94-7d3d-51ca-a1b4-3374fa5361f7
+	fromColumn: fact_failures.date
+	toColumn: dim_date.date
+
+relationship cf5e3d6b-f5c6-5b49-b45a-818b5ffae8d4
+	fromColumn: fact_failures.channel
+	toColumn: dim_channel.channel
+
+relationship 2b132f76-2a9b-5495-8230-840bc831e54b
+	fromColumn: fact_channel_hour.date
+	toColumn: dim_date.date
+
+relationship f058e129-7266-5bfd-b0b4-be906fd786e8
+	fromColumn: fact_channel_hour.channel
+	toColumn: dim_channel.channel
+
+relationship feaaae4a-1293-53f0-9c3c-66192c18e29c
+	fromColumn: fact_customer_month.month
+	toColumn: dim_date.date
+
+relationship 4d1ad550-0c1f-5cd1-ab21-af896f4db64a
+	fromColumn: fact_customer_month.segment
+	toColumn: dim_segment.segment
+
+relationship 1e88d166-d0df-5c03-bb15-f70af064b7c8
+	fromColumn: dim_customer.segment
+	toColumn: dim_segment.segment

@@ -1,0 +1,75 @@
+table fact_customer_month
+	lineageTag: 51d7a1c1-860b-54a8-a418-083f7c1254d9
+
+	column customer_id
+		dataType: string
+		isHidden
+		lineageTag: 8ecd6ecf-c339-5825-a8eb-e2d6b191e732
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column segment
+		dataType: string
+		isHidden
+		lineageTag: f6dfa828-8e2c-5df0-a67c-85b527cd90a4
+		summarizeBy: none
+		sourceColumn: segment
+
+	column month
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		isHidden
+		lineageTag: fa6082c7-e27e-5b6b-923e-db11b00977b2
+		summarizeBy: none
+		sourceColumn: month
+
+	column is_active
+		dataType: boolean
+		lineageTag: 938e38a5-f027-5f8f-b983-33e0d3a4d1d0
+		summarizeBy: none
+		sourceColumn: is_active
+
+	column is_new_customer
+		dataType: boolean
+		lineageTag: dcfeb70a-7304-5c80-a09a-ea997f21afae
+		summarizeBy: none
+		sourceColumn: is_new_customer
+
+	column successful
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d6d0162-989f-5cb5-a3fe-6b83dbbce825
+		summarizeBy: sum
+		sourceColumn: successful
+
+	column value_kes
+		dataType: decimal
+		formatString: #,0
+		lineageTag: b9d08150-1c74-532b-a8e9-676a467d4626
+		summarizeBy: sum
+		sourceColumn: value_kes
+
+	column fee_income
+		dataType: decimal
+		formatString: #,0
+		lineageTag: 92c39b0b-939a-5efa-a7b7-d850fe65dda8
+		summarizeBy: sum
+		sourceColumn: fee_income
+
+	column operational_failures
+		dataType: int64
+		formatString: 0
+		lineageTag: 3795d0ad-6ec6-5df8-8446-6efbf7b3e6d1
+		summarizeBy: sum
+		sourceColumn: operational_failures
+
+	partition fact_customer_month = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "fact_customer_month.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"customer_id", type text}, {"segment", type text}, {"month", type date}, {"is_active", type logical}, {"is_new_customer", type logical}, {"successful", Int64.Type}, {"value_kes", Currency.Type}, {"fee_income", Currency.Type}, {"operational_failures", Int64.Type}}, "en-US")
+				in
+				    Typed
+

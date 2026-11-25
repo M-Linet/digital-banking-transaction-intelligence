@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "TausiDigitalBank"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "bb0c12f8-55da-5c3e-994f-735c5ee7388e"
+  }
+}
